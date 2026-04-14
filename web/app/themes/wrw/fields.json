@@ -1,0 +1,17 @@
+[
+    {
+        "title": "Airsoft Club France (ACF)",
+        "image": "https://picsum.photos/200/300",
+        "description": "Actionreiches CQB- und Waldgelände in Frankreich, das wir für reguläre Trainingsspiele regelmäßig besuchen."
+    },
+    {
+        "title": "Beerzone",
+        "image": "https://picsum.photos/seed/picsum/200/300",
+        "description": "Eines der größten europäischen Airsoft-Events, das schnelle Action mit entspannten Larp-Elementen vereint."
+    },
+    {
+        "title": "Borderwar",
+        "image": "https://picsum.photos/200/300?grayscale",
+        "description": "Gigantisches Milsim/-Larp Event in Tschechien, auf dem tausende internationale Spieler zusammenkommen."
+    }
+]
