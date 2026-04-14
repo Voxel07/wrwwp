@@ -47,7 +47,7 @@
     "roots/bedrock-disallow-indexing": "^2.0",
     "roots/wordpress-core-installer": "^1.0",
     "roots/wp-config": "1.0.0",
-    "squizlabs/php_codesniffer": "^3.7.1",
+    "squizlabs/php_codesniffer": "^4.0.1",
     "wpackagist-plugin/wpforo": "3.0.5",
     "wpackagist-plugin/wp-mail-smtp": "4.7.1",
     "wpackagist-plugin/formbricks": "1.0.2",
