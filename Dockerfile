@@ -42,7 +42,10 @@ ENV DB_NAME=wordpress \
     AUTH_SALT=generateme \
     SECURE_AUTH_SALT=generateme \
     LOGGED_IN_SALT=generateme \
-    NONCE_SALT=generateme
+    NONCE_SALT=generateme \
+    WP_OPTION_IMMICH_PROXY_URL= \
+    WP_OPTION_IMMICH_DROP_URL= \
+    WP_OPTION_IMMICH_KIOSK_URL=
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
