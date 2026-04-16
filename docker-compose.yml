@@ -1,21 +1,28 @@
 services:
   db:
-    image: mariadb:12.3.1 
+    image: mariadb:12.2.2
+    container_name: wrwwp-db
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
       MYSQL_DATABASE: ${DB_NAME:-wordpress}
       MYSQL_USER: ${DB_USER:-wpuser}
       MYSQL_PASSWORD: ${DB_PASSWORD:-wppassword}
+    ports:
+      - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
     restart: always
 
   wordpress:
-    image: ghcr.io/your-repo/wrwwp:latest
+    container_name: wrwwp-wordpress
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # image: ghcr.io/voxel07/wrwwp:latest
     ports:
       - "${APP_PORT:-8080}:8080"
     environment:
-      DB_HOST: ${DB_HOST:-db}
+      DB_HOST: ${DB_HOST:-wrwwp-db}
       DB_NAME: ${DB_NAME:-wordpress}
       DB_USER: ${DB_USER:-wpuser}
       DB_PASSWORD: ${DB_PASSWORD:-wppassword}
@@ -33,12 +40,22 @@ services:
       WP_OPTION_IMMICH_PROXY_URL: ${WP_OPTION_IMMICH_PROXY_URL:-}
       WP_OPTION_IMMICH_DROP_URL: ${WP_OPTION_IMMICH_DROP_URL:-}
       WP_OPTION_IMMICH_KIOSK_URL: ${WP_OPTION_IMMICH_KIOSK_URL:-}
+      WP_PLUGINS_ACTIVATE: ${WP_PLUGINS_ACTIVATE:-all}
+      OIDC_CLIENT_ID: ${OIDC_CLIENT_ID:-}
+      OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET:-}
+      OIDC_CLIENT_SCOPE: ${OIDC_CLIENT_SCOPE:-openid email profile}
+      OIDC_ENDPOINT_LOGIN_URL: ${OIDC_ENDPOINT_LOGIN_URL:-}
+      OIDC_ENDPOINT_USERINFO_URL: ${OIDC_ENDPOINT_USERINFO_URL:-}
+      OIDC_ENDPOINT_TOKEN_URL: ${OIDC_ENDPOINT_TOKEN_URL:-}
+      OIDC_ENDPOINT_END_SESSION_URL: ${OIDC_ENDPOINT_END_SESSION_URL:-}
+      OIDC_JWKS_URI: ${OIDC_JWKS_URI:-}
+      OIDC_ISSUER: ${OIDC_ISSUER:-}
     volumes:
-      - ./web/app/uploads:/var/www/html/web/app/uploads
-      - ./web/app/themes:/var/www/html/web/app/themes
+      - wp_uploads:/var/www/html/web/app/uploads
     depends_on:
       - db
     restart: always
 
 volumes:
   db_data:
+  wp_uploads:

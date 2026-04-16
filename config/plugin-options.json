@@ -1,0 +1,4 @@
+{
+    "_comment": "Add any wp_options values you want to forcibly tie down here. They will override the database and the GUI.",
+    "formbricks_token": "your-token-from-env"
+}

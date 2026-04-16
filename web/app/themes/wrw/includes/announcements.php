@@ -39,8 +39,8 @@ function wrw_handle_announcement_submission() {
         $message_text = "Neue Ankündigung: " . $title . "\nLink: " . get_permalink($post_id);
         
         foreach ($users as $u) {
-            $pref = get_the_author_meta('wrw_notification_pref', $u->ID);
-            if ($pref === 'mail' || empty($pref)) { // Fallback to mail if entirely absent
+            $pref = get_user_meta($u->ID, 'wrw_notification_pref', true);
+            if ($pref === 'mail' || empty($pref)) {
                 wp_mail($u->user_email, "WRW Ankündigung: " . $title, $message_text);
             } elseif ($pref === 'webhook') {
                 $webhook_triggered = true;
@@ -64,3 +64,30 @@ function wrw_handle_announcement_submission() {
     exit;
 }
 add_action('admin_post_wrw_create_announcement', 'wrw_handle_announcement_submission');
+
+// Handle Edit Announcement Submission
+function wrw_handle_announcement_edit() {
+    if (!is_user_logged_in() || !current_user_can('edit_posts')) {
+        wp_die('Unauthorized');
+    }
+
+    $post_id = intval($_POST['post_id'] ?? 0);
+    if (!$post_id) wp_die('Invalid post.');
+
+    if (!isset($_POST['wrw_announcement_nonce']) || !wp_verify_nonce($_POST['wrw_announcement_nonce'], 'edit_announcement_' . $post_id)) {
+        wp_die('Security check failed.');
+    }
+
+    $title   = sanitize_text_field($_POST['announcement_title'] ?? '');
+    $content = sanitize_textarea_field($_POST['announcement_content'] ?? ''); // store raw markdown
+
+    wp_update_post(array(
+        'ID'           => $post_id,
+        'post_title'   => $title,
+        'post_content' => $content,
+    ));
+
+    wp_redirect(home_url('/announcements'));
+    exit;
+}
+add_action('admin_post_wrw_edit_announcement', 'wrw_handle_announcement_edit');

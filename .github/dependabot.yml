@@ -4,3 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+
+  - package-ecosystem: "npm"
+    directory: "/web/app/themes/wrw"
+    schedule:
+      interval: "weekly"

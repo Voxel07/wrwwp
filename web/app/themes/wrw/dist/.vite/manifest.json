@@ -1,0 +1,15 @@
+{
+  "_vendor.js": {
+    "file": "assets/vendor.js",
+    "name": "vendor"
+  },
+  "src/main.jsx": {
+    "file": "assets/main.js",
+    "name": "main",
+    "src": "src/main.jsx",
+    "isEntry": true,
+    "imports": [
+      "_vendor.js"
+    ]
+  }
+}

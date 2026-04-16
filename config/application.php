@@ -179,6 +179,28 @@ if (file_exists($env_config)) {
     require_once $env_config;
 }
 
+/**
+ * Plugin Configuration via Constants
+ * Maps environment variables to WordPress constants for plugins that natively support them.
+ */
+$plugin_constants = [
+    // WP Mail SMTP
+    'WPMS_ON', 'WPMS_SMTP_HOST', 'WPMS_SMTP_PORT', 'WPMS_SSL', 'WPMS_SMTP_AUTH',
+    'WPMS_SMTP_USER', 'WPMS_SMTP_PASS', 'WPMS_SMTP_AUTOTLS', 'WPMS_MAILER',
+    // OpenID Connect Generic
+    'OIDC_CLIENT_ID', 'OIDC_CLIENT_SECRET', 'OIDC_CLIENT_SCOPE', 'OIDC_ENDPOINT_LOGIN_URL',
+    'OIDC_ENDPOINT_USERINFO_URL', 'OIDC_ENDPOINT_TOKEN_URL', 'OIDC_ENDPOINT_END_SESSION_URL',
+    'OIDC_LOGIN_TYPE', 'OIDC_CREATE_IF_DOES_NOT_EXIST', 'OIDC_REDIRECT_USER_BACK', 
+    'OIDC_ENFORCE_PRIVACY', 'OIDC_JWKS_URI', 'OIDC_ISSUER',
+];
+
+foreach ($plugin_constants as $constant) {
+    $val = env($constant);
+    if ($val !== null) {
+        Config::define($constant, $val);
+    }
+}
+
 Config::apply();
 
 /**
