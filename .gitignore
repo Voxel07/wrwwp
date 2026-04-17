@@ -2,7 +2,14 @@
 web/wp
 web/app/uploads/*
 !web/app/uploads/.gitkeep
-
+web/app/plugins/*
+!web/app/plugins/.gitkeep
+web/app/mu-plugins/*
+!web/app/mu-plugins/.gitkeep
+web/app/themes/*
+!web/app/themes/.gitkeep
+!web/app/themes/wrw
+plugins/
 # Composer
 vendor/
 

@@ -8,6 +8,8 @@
 
     <!-- Exclusions -->
     <exclude-pattern>web/app/uploads/*</exclude-pattern>
+    <exclude-pattern>web/app/plugins/*</exclude-pattern>
+    <exclude-pattern>web/app/mu-plugins/*</exclude-pattern>
     <exclude-pattern>web/wp/*</exclude-pattern>
     <exclude-pattern>vendor/*</exclude-pattern>
     <exclude-pattern>node_modules/*</exclude-pattern>
