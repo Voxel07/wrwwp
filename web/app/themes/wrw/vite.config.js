@@ -14,8 +14,12 @@ export default defineConfig({
                 entryFileNames: 'assets/main.js',
                 assetFileNames: 'assets/[name].[ext]',
                 chunkFileNames: 'assets/[name].js',
-                manualChunks: {
-                    vendor: ['react', 'react-dom', '@mui/material', '@emotion/react', '@emotion/styled']
+                manualChunks(id) {
+                    if (id.includes('node_modules')) {
+                        if (id.includes('react') || id.includes('react-dom') || id.includes('@mui/material') || id.includes('@emotion/react') || id.includes('@emotion/styled')) {
+                            return 'vendor';
+                        }
+                    }
                 }
             }
         }

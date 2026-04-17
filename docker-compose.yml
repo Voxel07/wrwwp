@@ -56,6 +56,21 @@ services:
       - db
     restart: always
 
+  wpscan:
+    image: wpscanteam/wpscan:latest
+    container_name: wrwwp-wpscan
+    # Usage for Bedrock/Docker: 
+    # docker-compose --profile tools run --rm wpscan --url http://wordpress:8080/ --disable-tls-checks --ignore-main-redirect --wp-content-dir app
+    # With API token: 
+    # docker-compose --profile tools run --rm wpscan --url http://wordpress:8080/ --api-token YOUR_TOKEN --disable-tls-checks --ignore-main-redirect --wp-content-dir app
+    depends_on:
+      - wordpress
+    networks:
+      - default
+    profiles:
+      - tools
+    entrypoint: ["wpscan"]
+
 volumes:
   db_data:
   wp_uploads:

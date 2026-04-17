@@ -16,7 +16,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const drawerWidth = 250;
 
-export default function Layout({ children, wpData }) {
+export default function Layout({ children, wpData, renderMainArea = true }) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -212,21 +212,23 @@ export default function Layout({ children, wpData }) {
                 </Drawer>
             </Box>
 
-            {/* Main Content */}
-            <Box
-                component="main"
-                sx={{ flexGrow: 1, p: 0, width: { md: `calc(100% - ${drawerWidth}px)` }, minHeight: '100vh', display: 'flex', flexDirection: 'column', mt: '64px' }}
-            >
-                <Box sx={{ flexGrow: 1 }}>
-                    {children}
-                </Box>
+            {/* Main Content conditionally rendered */}
+            {renderMainArea && (
+                <Box
+                    component="main"
+                    sx={{ flexGrow: 1, p: 0, width: { md: `calc(100% - ${drawerWidth}px)` }, minHeight: '100vh', display: 'flex', flexDirection: 'column', mt: '64px' }}
+                >
+                    <Box sx={{ flexGrow: 1 }}>
+                        {children}
+                    </Box>
 
-                <Box component="footer" sx={{ p: 4, textAlign: 'center', borderTop: 1, borderColor: 'divider', bgcolor: 'background.default', mt: 'auto' }}>
-                    <Typography variant="body2" color="text.secondary">
-                        &copy; {new Date().getFullYear()} Wild Rovers Württemberg | Airsoft Stuttgart
-                    </Typography>
+                    <Box component="footer" sx={{ p: 4, textAlign: 'center', borderTop: 1, borderColor: 'divider', bgcolor: 'background.default', mt: 'auto' }}>
+                        <Typography variant="body2" color="text.secondary">
+                            &copy; {new Date().getFullYear()} Wild Rovers Württemberg | Airsoft Stuttgart
+                        </Typography>
+                    </Box>
                 </Box>
-            </Box>
+            )}
         </Box>
     );
 }

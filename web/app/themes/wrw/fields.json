@@ -1,17 +1,20 @@
 [
     {
-        "title": "Airsoft Club France (ACF)",
-        "image": "https://picsum.photos/200/300",
+        "title": "Paintball Veckring",
+        "url": "https://www.paintball-veckring.fr",
+        "image": "https://www.paintball-veckring.fr/wp-content/uploads/2021/01/logo_pvf_2021.png",
         "description": "Actionreiches CQB- und Waldgelände in Frankreich, das wir für reguläre Trainingsspiele regelmäßig besuchen."
     },
     {
-        "title": "Beerzone",
-        "image": "https://picsum.photos/seed/picsum/200/300",
-        "description": "Eines der größten europäischen Airsoft-Events, das schnelle Action mit entspannten Larp-Elementen vereint."
+        "title": "Borderwar",
+        "url": "https://www.borderwar.cz/sites/",
+        "image": "https://www.borderwar.cz/sites/wp-content/uploads/2022/01/borderwar-logo.png",
+        "description": "Gigantisches Milsim-Event in Tschechien, auf dem tausende internationale Spieler zusammenkommen."
     },
     {
-        "title": "Borderwar",
-        "image": "https://picsum.photos/200/300?grayscale",
-        "description": "Gigantisches Milsim/-Larp Event in Tschechien, auf dem tausende internationale Spieler zusammenkommen."
+        "title": "OP Beer Rebellion",
+        "url": "https://op-beer-rebellion.de",
+        "image": "https://op-beer-rebellion.de/wp-content/uploads/2023/01/logo.png",
+        "description": "Eines der größten deutschen Airsoft-Events mit einzigartiger Atmosphäre und militärischem Flair."
     }
 ]

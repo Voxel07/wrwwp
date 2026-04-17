@@ -1,7 +1,14 @@
 {
+  "_rolldown-runtime.js": {
+    "file": "assets/rolldown-runtime.js",
+    "name": "rolldown-runtime"
+  },
   "_vendor.js": {
     "file": "assets/vendor.js",
-    "name": "vendor"
+    "name": "vendor",
+    "imports": [
+      "_rolldown-runtime.js"
+    ]
   },
   "src/main.jsx": {
     "file": "assets/main.js",
@@ -9,6 +16,7 @@
     "src": "src/main.jsx",
     "isEntry": true,
     "imports": [
+      "_rolldown-runtime.js",
       "_vendor.js"
     ]
   }

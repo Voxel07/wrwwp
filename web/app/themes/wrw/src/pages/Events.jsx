@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Container, Typography, Card, CardContent, CardActions, Button, Grid, Chip } from '@mui/material';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import GroupIcon from '@mui/icons-material/Group';
 
 export default function Events({ wpData }) {
@@ -28,19 +27,19 @@ export default function Events({ wpData }) {
                             <input type="hidden" name="wrw_event_nonce" value={nonceCreateEvent} />
 
                             <Grid container spacing={2}>
-                                <Grid item xs={12}>
+                                <Grid size={{ xs: 12 }}>
                                     <input type="text" name="event_name" placeholder="Event Name" required style={{ width: '100%', padding: '10px', background: '#0c0f0f', color: '#eef2f1', border: '1px solid #74808f', borderRadius: '4px' }} />
                                 </Grid>
-                                <Grid item xs={12} sm={6}>
+                                <Grid size={{ xs: 12, sm: 6 }}>
                                     <input type="date" name="event_date" required style={{ width: '100%', padding: '10px', background: '#0c0f0f', color: '#eef2f1', border: '1px solid #74808f', borderRadius: '4px', colorScheme: 'dark' }} />
                                 </Grid>
-                                <Grid item xs={12} sm={6}>
+                                <Grid size={{ xs: 12, sm: 6 }}>
                                     <input type="text" name="event_location" placeholder="Ort / Gelände" required style={{ width: '100%', padding: '10px', background: '#0c0f0f', color: '#eef2f1', border: '1px solid #74808f', borderRadius: '4px' }} />
                                 </Grid>
-                                <Grid item xs={12}>
+                                <Grid size={{ xs: 12 }}>
                                     <textarea name="event_description" rows={4} placeholder="Event Beschreibung..." required style={{ width: '100%', padding: '10px', background: '#0c0f0f', color: '#eef2f1', border: '1px solid #74808f', borderRadius: '4px' }}></textarea>
                                 </Grid>
-                                <Grid item xs={12}>
+                                <Grid size={{ xs: 12 }}>
                                     <Button type="submit" variant="contained" color="secondary" fullWidth>Event Veröffentlichen</Button>
                                 </Grid>
                             </Grid>
@@ -50,7 +49,7 @@ export default function Events({ wpData }) {
 
                 <Grid container spacing={4} justifyContent="center">
                     {eventList.length > 0 ? eventList.map((evt) => (
-                        <Grid item xs={12} md={8} key={evt.id}>
+                        <Grid size={{ xs: 12, md: 8 }} key={evt.id}>
                             <Card sx={{ bgcolor: 'background.paper', border: 1, borderColor: 'divider', height: '100%', display: 'flex', flexDirection: 'column' }} elevation={2}>
                                 <CardContent sx={{ flexGrow: 1 }}>
                                     <Typography variant="h5" color="primary" gutterBottom>

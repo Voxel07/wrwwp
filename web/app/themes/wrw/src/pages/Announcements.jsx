@@ -158,10 +158,10 @@ export default function Announcements({ wpData }) {
                             <input type="hidden" name="action" value="wrw_create_announcement" />
                             <input type="hidden" name="wrw_announcement_nonce" value={nonceCreate} />
                             <Grid container spacing={2}>
-                                <Grid item xs={12}>
+                                <Grid size={{ xs: 12 }}>
                                     <TextField name="announcement_title" label="Titel" required fullWidth size="small" />
                                 </Grid>
-                                <Grid item xs={12}>
+                                <Grid size={{ xs: 12 }}>
                                     <TextField
                                         name="announcement_content"
                                         label="Nachricht (Markdown unterstützt)"
@@ -171,7 +171,7 @@ export default function Announcements({ wpData }) {
                                         sx={{ fontFamily: 'monospace' }}
                                     />
                                 </Grid>
-                                <Grid item xs={12}>
+                                <Grid size={{ xs: 12 }}>
                                     <Button type="submit" variant="contained" color="secondary" fullWidth>
                                         Veröffentlichen &amp; Broadcast
                                     </Button>

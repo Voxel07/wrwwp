@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Container, Typography, Button, Grid, Card, CardContent, CardMedia, CardActions } from '@mui/material';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 export default function Home({ wpData }) {
     const { events = [], fields = [], kioskUrl, urls } = wpData;
@@ -69,24 +70,49 @@ export default function Home({ wpData }) {
             <Box sx={{ py: 8 }}>
                 <Container>
                     <Typography variant="h4" color="primary" align="center" gutterBottom mb={6}>
-                        Unsere Spielfelder & Hauptevents
+                        Unsere Spielfelder &amp; Hauptevents
                     </Typography>
                     <Grid container spacing={4}>
                         {fields.map((field, idx) => (
-                            <Grid item xs={12} sm={6} md={4} key={idx}>
-                                <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }} elevation={1}>
+                            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={idx}>
+                                <Card
+                                    sx={{
+                                        height: '100%',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        transition: 'transform 0.2s, box-shadow 0.2s',
+                                        '&:hover': { transform: 'translateY(-4px)', boxShadow: 6 },
+                                    }}
+                                    elevation={1}
+                                >
                                     {field.image && (
                                         <CardMedia
                                             component="img"
                                             height="200"
                                             image={field.image}
                                             alt={field.title}
+                                            sx={{ objectFit: 'cover' }}
+                                            onError={(e) => { e.target.style.display = 'none'; }}
                                         />
                                     )}
-                                    <CardContent>
+                                    <CardContent sx={{ flexGrow: 1 }}>
                                         <Typography variant="h6" gutterBottom>{field.title}</Typography>
                                         <Typography variant="body2" color="text.secondary">{field.description}</Typography>
                                     </CardContent>
+                                    {field.url && (
+                                        <CardActions>
+                                            <Button
+                                                size="small"
+                                                color="primary"
+                                                href={field.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                endIcon={<OpenInNewIcon fontSize="small" />}
+                                            >
+                                                Website besuchen
+                                            </Button>
+                                        </CardActions>
+                                    )}
                                 </Card>
                             </Grid>
                         ))}
@@ -102,7 +128,7 @@ export default function Home({ wpData }) {
                     </Typography>
                     <Grid container spacing={4} justifyContent="center" mb={4}>
                         {events.length > 0 ? events.map((evt, idx) => (
-                            <Grid item xs={12} sm={6} md={4} key={idx}>
+                            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={idx}>
                                 <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }} elevation={2}>
                                     <CardContent sx={{ flexGrow: 1 }}>
                                         <Typography variant="h6" component="h3" gutterBottom>

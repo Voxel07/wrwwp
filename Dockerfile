@@ -13,10 +13,15 @@ RUN apt-get update && apt-get install -y \
  && docker-php-ext-install -j$(nproc) zip mysqli pdo_mysql gd bcmath
 
 # Enable Apache mod_rewrite
-RUN a2enmod rewrite
+RUN a2enmod rewrite headers
 
 # Suppress FQDN warning
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Hardur Apache & PHP
+RUN echo "ServerTokens Prod" >> /etc/apache2/apache2.conf \
+ && echo "ServerSignature Off" >> /etc/apache2/apache2.conf \
+ && echo "expose_php = Off" > /usr/local/etc/php/conf.d/security.ini
 
 # Change Apache port to 8080 for non-root execution
 RUN sed -ri -e 's!80!8080!g' /etc/apache2/ports.conf /etc/apache2/sites-available/*.conf

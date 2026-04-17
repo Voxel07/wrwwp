@@ -39,6 +39,7 @@ require_once get_template_directory() . '/includes/user-profiles.php';
 require_once get_template_directory() . '/includes/events.php';
 require_once get_template_directory() . '/includes/announcements.php';
 require_once get_template_directory() . '/includes/frontend-profile.php';
+require_once get_template_directory() . '/includes/security-hardening.php';
 
 function airsoft_theme_setup() {
     add_theme_support('title-tag');

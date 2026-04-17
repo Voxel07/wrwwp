@@ -49,13 +49,22 @@ export default function Team({ wpData }) {
                                 {roleTitle}
                             </Typography>
 
-                            <Grid container spacing={4}>
+                            {/* Use CSS Grid for uniform card widths */}
+                            <Grid container spacing={4} alignItems="stretch">
                                 {roleMembers.map((member) => (
-                                    <Grid item xs={12} sm={6} md={4} key={member.id}>
+                                    <Grid
+                                        size={{ xs: 12, sm: 6, md: 4 }}
+                                        key={member.id}
+                                        sx={{ display: 'flex' }}
+                                    >
                                         <TiltCard
                                             sx={{
-                                                height: '100%', position: 'relative', overflow: 'visible',
-                                                bgcolor: 'background.paper', display: 'flex', flexDirection: 'column',
+                                                width: '100%',
+                                                position: 'relative',
+                                                overflow: 'visible',
+                                                bgcolor: 'background.paper',
+                                                display: 'flex',
+                                                flexDirection: 'column',
                                                 transformStyle: 'preserve-3d',
                                             }}
                                             elevation={3}
@@ -99,7 +108,7 @@ export default function Team({ wpData }) {
                                                 </Box>
                                             )}
 
-                                            <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+                                            <CardContent sx={{ textAlign: 'center', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                                                 <Avatar
                                                     src={member.avatar}
                                                     alt={member.name}
@@ -127,7 +136,7 @@ export default function Team({ wpData }) {
                                                     </Typography>
                                                 )}
 
-                                                <Box sx={{ mt: 3, pt: 2, borderTop: 1, borderColor: 'divider', display: 'flex', flexDirection: 'column', gap: 1 }}>
+                                                <Box sx={{ mt: 'auto', pt: 2, borderTop: 1, borderColor: 'divider', display: 'flex', flexDirection: 'column', gap: 1 }}>
                                                     <Typography variant="caption" color="text.secondary">
                                                         {member.duration}
                                                     </Typography>

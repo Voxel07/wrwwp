@@ -1,3 +1,29 @@
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always unset X-Powered-By
+    Header always unset Server
+    Header unset X-Powered-By
+    Header unset Server
+</IfModule>
+
+# Disable Directory Listing
+Options -Indexes
+
+# Protect sensitive files
+<FilesMatch "^(\.env|composer\.(json|lock)|package(-lock)?\.json|wp-config\.php|readme\.html|license\.txt|readme\.txt)">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On

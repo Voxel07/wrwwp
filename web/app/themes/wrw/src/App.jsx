@@ -74,7 +74,7 @@ export default function App({ wpData }) {
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
-            <Layout wpData={wpData}>
+            <Layout wpData={wpData} renderMainArea={wpData.page !== 'forum'}>
                 {renderPage()}
             </Layout>
         </ThemeProvider>

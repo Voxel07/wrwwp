@@ -48,7 +48,7 @@ export default function Profile({ wpData }) {
 
                         {/* Read-only system info */}
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
+                            <Grid size={{ xs: 12, sm: 6 }}>
                                 <TextField
                                     label="System Benutzername"
                                     value={profileData.login || ''}
@@ -56,7 +56,7 @@ export default function Profile({ wpData }) {
                                     sx={{ input: { color: 'text.disabled' } }}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid size={{ xs: 12, sm: 6 }}>
                                 <TextField
                                     label="Team Rang (Rolle)"
                                     value={profileData.roleLabel || 'Unbekannt'}
@@ -70,10 +70,10 @@ export default function Profile({ wpData }) {
 
                         {/* Editable fields */}
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
+                            <Grid size={{ xs: 12, sm: 6 }}>
                                 <TextField label="Vorname / Callsign" name="first_name" defaultValue={profileData.firstName || ''} required fullWidth size="small" />
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid size={{ xs: 12, sm: 6 }}>
                                 <TextField label="Nachname" name="last_name" defaultValue={profileData.lastName || ''} required fullWidth size="small" />
                             </Grid>
                         </Grid>

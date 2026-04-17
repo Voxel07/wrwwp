@@ -42,7 +42,8 @@ if (file_exists($fields_file)) {
             $fields_data[] = array(
                 'title' => esc_html($field['title']),
                 'description' => esc_html($field['description']),
-                'image' => esc_url($field['image'] ?? '')
+                'image' => esc_url($field['image'] ?? ''),
+                'url' => esc_url($field['url'] ?? '')
             );
         }
     }

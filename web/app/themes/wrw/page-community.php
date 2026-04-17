@@ -3,7 +3,9 @@
  * Template Name: Forum
  *
  * The wpForo plugin manages its own JS, routing, and markup.
- * This page renders the [wpforo] shortcode directly — NOT via the React SPA.
+ * This page renders the [wpforo] shortcode directly — NOT via the React SPA's routing.
+ * However, the React App STILL MOUNTS on #root to render the navigation (AppBar & Drawer).
+ * By passing renderMainArea={false} in App.jsx for the 'forum' page, React skips taking over the main content area.
  */
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -15,118 +17,101 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <?php wp_head(); ?>
     <style>
-        :root {
-            --color-bg: #0c0f0f;
-            --color-bg-dark: #1a2022;
-            --color-border: #74808f;
-            --color-text: #eef2f1;
-            --color-muted: #8d9fa3;
-            --color-accent: #b4c3c0;
-        }
-        * { box-sizing: border-box; }
         body {
-            background: var(--color-bg);
-            color: var(--color-text);
-            font-family: 'Poppins', 'Roboto', sans-serif;
+            background: #0c0f0f;
+            color: #eef2f1;
+            font-family: "Poppins", "Roboto", "Helvetica", "Arial", sans-serif;
             margin: 0;
             display: flex;
             min-height: 100vh;
+            flex-direction: column;
         }
-        .forum-sidebar {
-            width: 250px;
-            min-height: 100vh;
-            background: var(--color-bg-dark);
-            border-right: 1px solid var(--color-border);
-            padding: 1.5rem 1rem;
+
+        /* Provide space for the fixed React navigation elements */
+        .wrw-main-wrapper {
             display: flex;
             flex-direction: column;
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            overflow-y: auto;
-        }
-        .forum-sidebar a {
-            color: var(--color-text);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 0.75rem;
-            border-radius: 6px;
-            margin-bottom: 0.25rem;
-            font-size: 0.9rem;
-        }
-        .forum-sidebar a:hover { background: rgba(255,255,255,0.06); }
-        .forum-sidebar .site-title {
-            color: var(--color-accent);
-            font-weight: 700;
-            font-size: 1.1rem;
-            display: block;
-            margin-bottom: 0.25rem;
-        }
-        .forum-sidebar .site-sub {
-            color: var(--color-muted);
-            font-size: 0.75rem;
-            display: block;
-            margin-bottom: 1.5rem;
-        }
-        .forum-sidebar hr { border-color: var(--color-border); margin: 1rem 0; }
-        .forum-main {
-            margin-left: 250px;
-            padding: 2rem;
             flex: 1;
-            min-height: 100vh;
+            margin-left: 250px; /* matches Drawer width */
+            margin-top: 64px;   /* matches AppBar height */
+            min-height: calc(100vh - 64px);
         }
-        @media (max-width: 768px) {
-            .forum-sidebar { display: none; }
-            .forum-main { margin-left: 0; }
+
+        .wrw-main-content {
+            flex-grow: 1;
+            padding: 2rem;
+        }
+
+        .wrw-footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #74808f; /* matches theme.palette.divider */
+            background: #0c0f0f;
+            margin-top: auto;
+        }
+
+        .wrw-footer-text {
+            font-size: 0.875rem;
+            color: #8d9fa3; /* matches theme.palette.text.secondary */
+        }
+
+        /* Responsive: Match MUI's 'md' breakpoint (900px) */
+        @media (max-width: 899.95px) {
+            .wrw-main-wrapper {
+                margin-left: 0; /* Drawer becomes hidden/temporary on mobile */
+            }
         }
     </style>
+    <?php
+    $wrw_wp_data = array('page' => 'forum');
+    $wrw_wp_data['isLoggedIn'] = is_user_logged_in();
+    $wrw_wp_data['isAdmin'] = current_user_can('edit_users');
+    if (is_user_logged_in()) {
+        $current_user = wp_get_current_user();
+        $wrw_wp_data['user'] = array(
+            'id' => $current_user->ID,
+            'name' => $current_user->display_name,
+            'avatar' => get_avatar_url($current_user->ID, array('size' => 45))
+        );
+    }
+    $wrw_wp_data['urls'] = array(
+        'home' => esc_url(home_url('/home')),
+        'team' => esc_url(home_url('/team')),
+        'events' => esc_url(home_url('/events')),
+        'regeln' => esc_url(home_url('/regeln')),
+        'sponsoren' => esc_url(home_url('/sponsoren')),
+        'galerie' => esc_url(home_url('/galerie')),
+        'forum' => esc_url(home_url('/community')),
+        'announcements' => esc_url(home_url('/announcements')),
+        'admin' => esc_url(home_url('/admin-overview')),
+        'profil' => esc_url(home_url('/profil')),
+        'login' => esc_url(wp_login_url(home_url('/community'))),
+        'logout' => esc_url(wp_logout_url(home_url('/')))
+    );
+    ?>
+    <script>
+        window.__WP_DATA__ = <?php echo wp_json_encode($wrw_wp_data); ?>;
+    </script>
 </head>
 <body>
 
-<nav class="forum-sidebar">
-    <a href="<?php echo esc_url(home_url('/home')); ?>" style="flex-direction:column;align-items:flex-start;padding-left:0;">
-        <span class="site-title">Wild Rovers</span>
-        <span class="site-sub">Württemberg</span>
-    </a>
-    <hr>
-    <a href="<?php echo esc_url(home_url('/home')); ?>">🏠 Home</a>
-    <a href="<?php echo esc_url(home_url('/team')); ?>">👥 Team</a>
-    <a href="<?php echo esc_url(home_url('/events')); ?>">📅 Events</a>
-    <a href="<?php echo esc_url(home_url('/regeln')); ?>">⚖️ Regeln</a>
-    <a href="<?php echo esc_url(home_url('/sponsoren')); ?>">🤝 Sponsoren</a>
-    <a href="<?php echo esc_url(home_url('/galerie')); ?>">🖼️ Galerie</a>
-    <?php if (is_user_logged_in()) : ?>
-    <hr>
-    <small style="color:var(--color-muted);padding:0.5rem 0.75rem;font-weight:bold;text-transform:uppercase;font-size:0.7rem;">Mitglieder</small>
-    <a href="<?php echo esc_url(home_url('/community')); ?>" style="color:var(--color-accent);font-weight:600;">💬 Forum</a>
-    <a href="<?php echo esc_url(home_url('/announcements')); ?>">📣 Ankündigungen</a>
-    <?php endif; ?>
-    <?php if (current_user_can('edit_users')) : ?>
-    <hr>
-    <a href="<?php echo esc_url(home_url('/admin-overview')); ?>" style="color:#f28b82;">🔧 Admin</a>
-    <?php endif; ?>
-    <div style="flex:1;"></div>
-    <hr>
-    <?php if (is_user_logged_in()) :
-        $cu = wp_get_current_user(); ?>
-    <div style="display:flex;align-items:center;gap:0.75rem;padding:0.5rem 0.75rem;">
-        <?php echo get_avatar($cu->ID, 36, '', '', ['style' => 'border-radius:50%;']); ?>
-        <span style="font-size:0.85rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><?php echo esc_html($cu->display_name); ?></span>
-        <a href="<?php echo esc_url(wp_logout_url(home_url('/'))); ?>" style="color:#f28b82;font-size:0.8rem;">↩</a>
-    </div>
-    <?php else : ?>
-    <a href="<?php echo esc_url(wp_login_url(home_url('/community'))); ?>" style="background:#4a565b;justify-content:center;font-weight:600;">🔑 Login</a>
-    <?php endif; ?>
-</nav>
+<!-- React will mount here and render ONLY the AppBar and Drawer because renderMainArea={false} -->
+<div id="root"></div>
 
-<main class="forum-main">
-    <?php if (have_posts()) : while (have_posts()) : the_post();
-        the_content();
-    endwhile; endif; ?>
-</main>
+<!-- The actual PHP/wpForo content sits alongside React and handles its own layout -->
+<div class="wrw-main-wrapper">
+    <main class="wrw-main-content">
+        <?php if (have_posts()) : while (have_posts()) : the_post();
+            the_content();
+        endwhile; endif; ?>
+    </main>
+
+    <footer class="wrw-footer">
+        <span class="wrw-footer-text">
+            &copy; <?php echo date('Y'); ?> Wild Rovers Württemberg | Airsoft Stuttgart
+        </span>
+    </footer>
+</div>
 
 <?php wp_footer(); ?>
 </body>
