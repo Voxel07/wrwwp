@@ -29,7 +29,7 @@ export default function Rules({ wpData }) {
     const rules = wpData.rules || { short: '', full: '' };
 
     return (
-        <Box sx={{ py: 6 }}>
+        <Box sx={{ py: { xs: 3, md: 6 } }}>
             <Container maxWidth="md">
                 <Box sx={{ bgcolor: 'background.paper', p: { xs: 3, md: 6 }, borderRadius: 3, boxShadow: 4 }}>
                     <Typography variant="h3" color="primary" align="center" sx={{ mb: 5, textTransform: 'uppercase' }}>

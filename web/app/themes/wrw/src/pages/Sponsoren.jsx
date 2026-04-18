@@ -26,7 +26,7 @@ const SPONSORS = [
 
 export default function Sponsoren() {
     return (
-        <Box sx={{ py: 6 }}>
+        <Box sx={{ py: { xs: 3, md: 6 } }}>
             <Container maxWidth="lg">
                 <Box sx={{ textAlign: 'center', mb: 6 }}>
                     <HandshakeIcon sx={{ fontSize: 48, color: 'primary.main', mb: 2 }} />

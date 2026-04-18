@@ -44,11 +44,11 @@ function AnnouncementCard({ item, canEdit, adminPostUrl }) {
                             autoFocus
                         />
 
-                        <Box sx={{ display: 'flex', gap: 1, mb: 0.5 }}>
+                        <Box sx={{ display: 'flex', gap: 1, mb: 0.5, flexWrap: 'wrap', alignItems: 'center' }}>
                             <Button size="small" variant={preview ? 'outlined' : 'contained'} color="secondary" onClick={() => setPreview(false)}>Bearbeiten</Button>
                             <Button size="small" variant={preview ? 'contained' : 'outlined'} color="secondary" onClick={() => setPreview(true)}>Vorschau</Button>
-                            <Typography variant="caption" color="text.secondary" sx={{ ml: 'auto', alignSelf: 'center' }}>
-                                Markdown wird unterstützt: **fett**, *kursiv*, `code`, ## Überschrift
+                            <Typography variant="caption" color="text.secondary" sx={{ ml: { xs: 0, sm: 'auto' }, alignSelf: 'center', display: { xs: 'none', sm: 'block' } }}>
+                                Markdown: **fett**, *kursiv*, `code`, ## Überschrift
                             </Typography>
                         </Box>
 
@@ -140,7 +140,7 @@ export default function Announcements({ wpData }) {
     }
 
     return (
-        <Box sx={{ py: 6 }}>
+        <Box sx={{ py: { xs: 4, md: 6 } }}>
             <Container maxWidth="md">
                 <Typography variant="h3" color="primary" align="center" gutterBottom>
                     Verbands-Ankündigungen
@@ -150,7 +150,7 @@ export default function Announcements({ wpData }) {
                 </Typography>
 
                 {canEditAnnouncements && (
-                    <Box sx={{ mb: 6, p: 3, border: 1, borderColor: 'secondary.main', borderRadius: 2, bgcolor: 'background.paper', borderStyle: 'dashed' }}>
+                    <Box sx={{ mb: 6, p: { xs: 2, sm: 3 }, border: 1, borderColor: 'secondary.main', borderRadius: 2, bgcolor: 'background.paper', borderStyle: 'dashed' }}>
                         <Typography variant="h6" color="secondary" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
                             <CampaignIcon sx={{ mr: 1 }} /> Neue Ankündigung erstellen
                         </Typography>

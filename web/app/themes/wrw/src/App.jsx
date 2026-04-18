@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import { ThemeProvider, createTheme, responsiveFontSizes, CssBaseline } from '@mui/material';
 import Layout from './components/Layout.jsx';
 import Home from './pages/Home.jsx';
 import Events from './pages/Events.jsx';
@@ -12,7 +12,7 @@ import AdminOverview from './pages/AdminOverview.jsx';
 import Profile from './pages/Profile.jsx';
 
 export default function App({ wpData }) {
-    const darkTheme = useMemo(() => createTheme({
+    const darkTheme = useMemo(() => responsiveFontSizes(createTheme({
         palette: {
             mode: 'dark',
             background: {
@@ -36,12 +36,13 @@ export default function App({ wpData }) {
             h1: { fontSize: '3.5rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' },
             h2: { fontSize: '2.5rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' },
             h3: { fontSize: '2rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' },
+            h4: { fontSize: '1.5rem', fontWeight: 700 },
             button: { fontWeight: 700, textTransform: 'uppercase' },
         },
         shape: {
             borderRadius: 8
         }
-    }), []);
+    })), []);
 
     const renderPage = () => {
         switch (wpData.page) {

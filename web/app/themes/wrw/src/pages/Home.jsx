@@ -16,7 +16,7 @@ export default function Home({ wpData }) {
                     <Typography variant="h6" color="text.secondary" paragraph>
                         Airsoft Team aus Stuttgart und Umgebung. Disziplin, Taktik, und Kameradschaft.
                     </Typography>
-                    <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', mt: 4 }}>
+                    <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', mt: 4, flexWrap: 'wrap' }}>
                         <Button variant="contained" color="secondary" href={urls?.regeln}>
                             Regeln
                         </Button>

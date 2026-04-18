@@ -18,7 +18,7 @@ export default function Profile({ wpData }) {
     }
 
     return (
-        <Box sx={{ py: 6 }}>
+        <Box sx={{ py: { xs: 4, md: 6 } }}>
             <Container maxWidth="md">
                 <Box sx={{ textAlign: 'center', mb: 6 }}>
                     <PersonIcon sx={{ fontSize: 48, color: 'primary.main', mb: 2 }} />

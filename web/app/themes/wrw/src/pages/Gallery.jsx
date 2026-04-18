@@ -7,7 +7,7 @@ export default function Gallery({ wpData }) {
     const [showUpload, setShowUpload] = useState(false);
 
     return (
-        <Box sx={{ py: 6 }}>
+        <Box sx={{ py: { xs: 3, md: 6 } }}>
             <Container maxWidth="xl">
                 <Typography variant="h3" color="primary" align="center" gutterBottom>
                     Einsatz-Galerie

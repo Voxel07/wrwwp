@@ -7,7 +7,7 @@ export default function Events({ wpData }) {
     const { eventList = [], canEditEvents, adminPostUrl, nonceCreateEvent, isLoggedIn } = wpData;
 
     return (
-        <Box sx={{ py: 6 }}>
+        <Box sx={{ py: { xs: 4, md: 6 } }}>
             <Container maxWidth="lg">
                 <Typography variant="h3" color="primary" align="center" gutterBottom>
                     Einsatzplan & Events
@@ -28,16 +28,16 @@ export default function Events({ wpData }) {
 
                             <Grid container spacing={2}>
                                 <Grid size={{ xs: 12 }}>
-                                    <input type="text" name="event_name" placeholder="Event Name" required style={{ width: '100%', padding: '10px', background: '#0c0f0f', color: '#eef2f1', border: '1px solid #74808f', borderRadius: '4px' }} />
+                                    <input type="text" name="event_name" placeholder="Event Name" required style={{ width: '100%', padding: '10px', background: '#0c0f0f', color: '#eef2f1', border: '1px solid #74808f', borderRadius: '4px', boxSizing: 'border-box' }} />
                                 </Grid>
                                 <Grid size={{ xs: 12, sm: 6 }}>
-                                    <input type="date" name="event_date" required style={{ width: '100%', padding: '10px', background: '#0c0f0f', color: '#eef2f1', border: '1px solid #74808f', borderRadius: '4px', colorScheme: 'dark' }} />
+                                    <input type="date" name="event_date" required style={{ width: '100%', padding: '10px', background: '#0c0f0f', color: '#eef2f1', border: '1px solid #74808f', borderRadius: '4px', colorScheme: 'dark', boxSizing: 'border-box' }} />
                                 </Grid>
                                 <Grid size={{ xs: 12, sm: 6 }}>
-                                    <input type="text" name="event_location" placeholder="Ort / Gelände" required style={{ width: '100%', padding: '10px', background: '#0c0f0f', color: '#eef2f1', border: '1px solid #74808f', borderRadius: '4px' }} />
+                                    <input type="text" name="event_location" placeholder="Ort / Gelände" required style={{ width: '100%', padding: '10px', background: '#0c0f0f', color: '#eef2f1', border: '1px solid #74808f', borderRadius: '4px', boxSizing: 'border-box' }} />
                                 </Grid>
                                 <Grid size={{ xs: 12 }}>
-                                    <textarea name="event_description" rows={4} placeholder="Event Beschreibung..." required style={{ width: '100%', padding: '10px', background: '#0c0f0f', color: '#eef2f1', border: '1px solid #74808f', borderRadius: '4px' }}></textarea>
+                                    <textarea name="event_description" rows={4} placeholder="Event Beschreibung..." required style={{ width: '100%', padding: '10px', background: '#0c0f0f', color: '#eef2f1', border: '1px solid #74808f', borderRadius: '4px', boxSizing: 'border-box', resize: 'vertical' }}></textarea>
                                 </Grid>
                                 <Grid size={{ xs: 12 }}>
                                     <Button type="submit" variant="contained" color="secondary" fullWidth>Event Veröffentlichen</Button>

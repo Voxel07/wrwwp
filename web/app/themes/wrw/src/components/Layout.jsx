@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemButton, ListItemText, ListItemIcon, Box, useTheme, useMediaQuery, CssBaseline, Button, Avatar, Divider } from '@mui/material';
+import {
+    AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem,
+    ListItemButton, ListItemText, ListItemIcon, Box, useTheme, useMediaQuery,
+    CssBaseline, Button, Avatar, Divider
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
@@ -19,10 +23,16 @@ const drawerWidth = 250;
 export default function Layout({ children, wpData, renderMainArea = true }) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    // Sidebar closed by default on mobile, open on desktop
     const [mobileOpen, setMobileOpen] = useState(false);
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
+    };
+
+    const handleNavClick = () => {
+        // Close drawer when a nav item is clicked on mobile
+        if (isMobile) setMobileOpen(false);
     };
 
     const urls = wpData.urls || {};
@@ -44,10 +54,6 @@ export default function Layout({ children, wpData, renderMainArea = true }) {
         { text: 'Ankündigungen', href: urls.announcements, icon: <CampaignIcon /> },
     ];
 
-    const adminNavLinks = [
-        { text: 'Admin Overview', href: urls.admin, icon: <AdminPanelSettingsIcon /> },
-    ];
-
     const drawer = (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', bgcolor: 'background.paper' }}>
             <Box sx={{ p: 2, textAlign: 'center' }}>
@@ -63,8 +69,8 @@ export default function Layout({ children, wpData, renderMainArea = true }) {
             <List>
                 {publicNavLinks.map((item) => (
                     <ListItem key={item.text} disablePadding>
-                        <ListItemButton component="a" href={item.href}>
-                            <ListItemIcon>{item.icon}</ListItemIcon>
+                        <ListItemButton component="a" href={item.href} onClick={handleNavClick}>
+                            <ListItemIcon sx={{ minWidth: 40 }}>{item.icon}</ListItemIcon>
                             <ListItemText primary={item.text} />
                         </ListItemButton>
                     </ListItem>
@@ -80,8 +86,8 @@ export default function Layout({ children, wpData, renderMainArea = true }) {
                         </Typography>
                         {memberNavLinks.map((item) => (
                             <ListItem key={item.text} disablePadding>
-                                <ListItemButton component="a" href={item.href}>
-                                    <ListItemIcon>{item.icon}</ListItemIcon>
+                                <ListItemButton component="a" href={item.href} onClick={handleNavClick}>
+                                    <ListItemIcon sx={{ minWidth: 40 }}>{item.icon}</ListItemIcon>
                                     <ListItemText primary={item.text} />
                                 </ListItemButton>
                             </ListItem>
@@ -95,8 +101,8 @@ export default function Layout({ children, wpData, renderMainArea = true }) {
                     <Divider />
                     <List>
                         <ListItem disablePadding>
-                            <ListItemButton component="a" href={urls.admin}>
-                                <ListItemIcon><AdminPanelSettingsIcon color="error" /></ListItemIcon>
+                            <ListItemButton component="a" href={urls.admin} onClick={handleNavClick}>
+                                <ListItemIcon sx={{ minWidth: 40 }}><AdminPanelSettingsIcon color="error" /></ListItemIcon>
                                 <ListItemText primary="Admin Overview" primaryTypographyProps={{ color: 'error.main' }} />
                             </ListItemButton>
                         </ListItem>
@@ -109,9 +115,9 @@ export default function Layout({ children, wpData, renderMainArea = true }) {
 
             <Box sx={{ p: 2 }}>
                 {isLoggedIn ? (
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                        <Avatar src={user?.avatar} alt={user?.name} />
-                        <Box sx={{ flexGrow: 1, overflow: 'hidden' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
+                        <Avatar src={user?.avatar} alt={user?.name} sx={{ width: 36, height: 36, flexShrink: 0 }} />
+                        <Box sx={{ flexGrow: 1, overflow: 'hidden', minWidth: 0 }}>
                             <Typography variant="body2" noWrap>{user?.name}</Typography>
                         </Box>
                         <IconButton color="error" component="a" href={urls.logout} title="Logout" size="small">
@@ -140,38 +146,59 @@ export default function Layout({ children, wpData, renderMainArea = true }) {
                     borderBottom: 1,
                     borderColor: 'divider',
                     boxShadow: 'none',
+                    // On desktop, offset to the right of the permanent sidebar
+                    width: { md: `calc(100% - ${drawerWidth}px)` },
+                    ml: { md: `${drawerWidth}px` },
                 }}
             >
-                <Toolbar>
-                    {/* Hamburger for mobile */}
-                    {isMobile && (
-                        <IconButton
-                            color="inherit"
-                            aria-label="open drawer"
-                            edge="start"
-                            onClick={handleDrawerToggle}
-                            sx={{ mr: 2 }}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                    )}
+                <Toolbar sx={{ minHeight: { xs: 56, sm: 64 } }}>
+                    {/* Hamburger — only on mobile */}
+                    <IconButton
+                        color="inherit"
+                        aria-label="open navigation"
+                        edge="start"
+                        onClick={handleDrawerToggle}
+                        sx={{ mr: 1, display: { md: 'none' } }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
 
-                    <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, color: 'primary.main', fontWeight: 'bold' }}>
+                    {/* Brand — visible in AppBar on mobile where sidebar is hidden */}
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{
+                            flexGrow: 1,
+                            color: 'primary.main',
+                            fontWeight: 'bold',
+                            display: { md: 'none' }, // Hidden on desktop (sidebar shows brand)
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                        }}
+                    >
                         Wild Rovers
                     </Typography>
 
+                    {/* Spacer on desktop (no brand text needed) */}
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }} />
+
                     {/* Right-side profile / login */}
                     {isLoggedIn ? (
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexShrink: 0 }}>
                             <Avatar
                                 src={user?.avatar}
                                 alt={user?.name}
-                                sx={{ width: 36, height: 36, cursor: 'pointer' }}
+                                sx={{ width: 34, height: 34, cursor: 'pointer', flexShrink: 0 }}
                                 component="a"
                                 href={urls.profil}
                                 title="Mein Profil"
                             />
-                            <Typography variant="body2" sx={{ display: { xs: 'none', sm: 'block' } }}>
+                            <Typography
+                                variant="body2"
+                                noWrap
+                                sx={{ display: { xs: 'none', sm: 'block' }, maxWidth: 140 }}
+                            >
                                 {user?.name}
                             </Typography>
                             <IconButton color="error" component="a" href={urls.logout} title="Logout" size="small">
@@ -179,15 +206,27 @@ export default function Layout({ children, wpData, renderMainArea = true }) {
                             </IconButton>
                         </Box>
                     ) : (
-                        <Button variant="contained" color="secondary" startIcon={<LoginIcon />} href={urls.login} size="small">
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            startIcon={<LoginIcon />}
+                            href={urls.login}
+                            size="small"
+                            sx={{ whiteSpace: 'nowrap' }}
+                        >
                             Login
                         </Button>
                     )}
                 </Toolbar>
             </AppBar>
 
-            {/* Responsive Drawer */}
-            <Box component="nav" sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}>
+            {/* Sidebar Navigation */}
+            <Box
+                component="nav"
+                sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+                aria-label="navigation"
+            >
+                {/* Mobile: temporary overlay drawer */}
                 <Drawer
                     variant="temporary"
                     open={mobileOpen}
@@ -195,16 +234,29 @@ export default function Layout({ children, wpData, renderMainArea = true }) {
                     ModalProps={{ keepMounted: true }}
                     sx={{
                         display: { xs: 'block', md: 'none' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, mt: '64px' },
+                        '& .MuiDrawer-paper': {
+                            boxSizing: 'border-box',
+                            width: drawerWidth,
+                            top: { xs: '56px', sm: '64px' },
+                            height: { xs: 'calc(100% - 56px)', sm: 'calc(100% - 64px)' },
+                        },
                     }}
                 >
                     {drawer}
                 </Drawer>
+
+                {/* Desktop: permanent sidebar */}
                 <Drawer
                     variant="permanent"
                     sx={{
                         display: { xs: 'none', md: 'block' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, mt: '64px', height: 'calc(100% - 64px)' },
+                        '& .MuiDrawer-paper': {
+                            boxSizing: 'border-box',
+                            width: drawerWidth,
+                            height: '100%',
+                            borderRight: 1,
+                            borderColor: 'divider',
+                        },
                     }}
                     open
                 >
@@ -212,17 +264,37 @@ export default function Layout({ children, wpData, renderMainArea = true }) {
                 </Drawer>
             </Box>
 
-            {/* Main Content conditionally rendered */}
+            {/* Main Content */}
             {renderMainArea && (
                 <Box
                     component="main"
-                    sx={{ flexGrow: 1, p: 0, width: { md: `calc(100% - ${drawerWidth}px)` }, minHeight: '100vh', display: 'flex', flexDirection: 'column', mt: '64px' }}
+                    sx={{
+                        flexGrow: 1,
+                        width: { xs: '100%', md: `calc(100% - ${drawerWidth}px)` },
+                        minHeight: '100vh',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        // Offset content below the AppBar
+                        mt: { xs: '56px', sm: '64px' },
+                        // Prevent horizontal overflow on mobile
+                        overflow: 'hidden',
+                    }}
                 >
                     <Box sx={{ flexGrow: 1 }}>
                         {children}
                     </Box>
 
-                    <Box component="footer" sx={{ p: 4, textAlign: 'center', borderTop: 1, borderColor: 'divider', bgcolor: 'background.default', mt: 'auto' }}>
+                    <Box
+                        component="footer"
+                        sx={{
+                            p: { xs: 2, sm: 4 },
+                            textAlign: 'center',
+                            borderTop: 1,
+                            borderColor: 'divider',
+                            bgcolor: 'background.default',
+                            mt: 'auto',
+                        }}
+                    >
                         <Typography variant="body2" color="text.secondary">
                             &copy; {new Date().getFullYear()} Wild Rovers Württemberg | Airsoft Stuttgart
                         </Typography>

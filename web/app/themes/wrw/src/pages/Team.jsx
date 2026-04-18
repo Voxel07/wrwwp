@@ -30,7 +30,7 @@ export default function Team({ wpData }) {
     const { roles, members } = teamConfig;
 
     return (
-        <Box sx={{ py: 6 }}>
+        <Box sx={{ py: { xs: 3, md: 6 } }}>
             <Container maxWidth="lg">
                 <Typography variant="h3" color="primary" align="center" gutterBottom>
                     Das Team
