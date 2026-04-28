@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "49fe40ee89f25318d5150ec5daee87b8",
+    "content-hash": "bced0f68ee829424281164d6a4f73487",
     "packages": [
         {
             "name": "composer/installers",
@@ -1133,15 +1133,15 @@
         },
         {
             "name": "wpackagist-plugin/wpforo",
-            "version": "3.0.5",
+            "version": "3.0.9",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wpforo/",
-                "reference": "tags/3.0.5"
+                "reference": "tags/3.0.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wpforo.3.0.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/wpforo.3.0.9.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
