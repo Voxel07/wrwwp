@@ -4,8 +4,15 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    registries:
+      - wpackagist
 
   - package-ecosystem: "npm"
     directory: "/web/app/themes/wrw"
     schedule:
       interval: "weekly"
+
+registries:
+  wpackagist:
+    type: composer-repository
+    url: https://wpackagist.org

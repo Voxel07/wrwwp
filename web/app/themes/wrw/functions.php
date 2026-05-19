@@ -181,3 +181,44 @@ function wrw_setup_pages() {
 	}
 }
 add_action( 'init', 'wrw_setup_pages' );
+
+/**
+ * Auto-heal wpForo Board Page ID mismatch after database migration/import.
+ */
+// function wrw_fix_wpforo_page_id_mismatch() {
+// 	global $wpdb;
+
+// 	$table_name = $wpdb->prefix . 'wpforo_boards';
+// 	// Check if the wpForo boards table exists in database
+// 	if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name ) ) === $table_name ) {
+// 		$forum_page = get_page_by_path( 'community' );
+// 		if ( $forum_page && isset( $forum_page->ID ) ) {
+// 			$correct_page_id = (int) $forum_page->ID;
+
+// 			// Fetch all boards to check their mapped page IDs
+// 			$boards = $wpdb->get_results( "SELECT boardid, pageid FROM $table_name" );
+// 			$updated = false;
+
+// 			if ( ! empty( $boards ) ) {
+// 				foreach ( $boards as $board ) {
+// 					if ( (int) $board->pageid !== $correct_page_id ) {
+// 						$wpdb->update(
+// 							$table_name,
+// 							array( 'pageid' => $correct_page_id ),
+// 							array( 'boardid' => $board->boardid ),
+// 							array( '%d' ),
+// 							array( '%d' )
+// 						);
+// 						$updated = true;
+// 					}
+// 				}
+// 			}
+
+// 			// If any board pageid was updated, clear wpForo cache
+// 			if ( $updated && function_exists( 'WPF' ) ) {
+// 				WPF()->cache->clear();
+// 			}
+// 		}
+// 	}
+// }
+// add_action( 'init', 'wrw_fix_wpforo_page_id_mismatch', 20 );

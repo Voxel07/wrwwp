@@ -94,7 +94,7 @@
 		window.__WP_DATA__ = <?php echo wp_json_encode( $wrw_wp_data ); ?>;
 	</script>
 </head>
-<body>
+<body <?php body_class(); ?>>
 
 <!-- React will mount here and render ONLY the AppBar and Drawer because renderMainArea={false} -->
 <div id="root"></div>
