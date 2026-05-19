@@ -16,5 +16,5 @@ registries:
   wpackagist:
     type: composer-repository
     url: https://wpackagist.org
-    username: "none"
-    password: "none"
+    username: ${{ secrets.WPACKAGIST_USER }}
+    password: ${{ secrets.WPACKAGIST_PASSWORD }}
