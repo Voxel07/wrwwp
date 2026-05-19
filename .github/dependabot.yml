@@ -16,3 +16,5 @@ registries:
   wpackagist:
     type: composer-repository
     url: https://wpackagist.org
+    username: "none"
+    password: "none"
