@@ -76,7 +76,7 @@ export default function Team({ wpData }) {
                                                     top: 15,
                                                     right: -8,
                                                     backgroundColor: 'secondary.main',
-                                                    color: 'white',
+                                                    color: 'text.primary',
                                                     fontWeight: 'bold',
                                                     fontSize: '0.8rem',
                                                     py: 0.5,

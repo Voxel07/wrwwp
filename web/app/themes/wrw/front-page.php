@@ -69,6 +69,8 @@ if ( file_exists( $history_file ) ) {
 		$pd->setSafeMode( true );
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		$raw = file_get_contents( $history_file );
+		// Normalize line endings to Unix format (\n) to handle CRLF issues on Windows.
+		$raw = str_replace( array( "\r\n", "\r" ), "\n", $raw );
 		// Convert ALL CAPS section headers (e.g. "DIE GESCHICHTE:") to h3.
 		$raw          = preg_replace( '/^([A-ZÄÖÜ\s]+):$/m', '### $1', $raw );
 		$history_html = wp_kses_post( $pd->text( $raw ) );
@@ -79,6 +81,13 @@ if ( file_exists( $history_file ) ) {
 	}
 }
 $wrw_wp_data['historyHtml'] = $history_html;
+
+$wrw_wp_data['historyImages'] = array(
+	'tsat'   => esc_url( get_template_directory_uri() . '/files/TSAT_small.webp' ),
+	'legion' => esc_url( get_template_directory_uri() . '/files/Legion1_small.webp' ),
+	'rovers' => esc_url( get_template_directory_uri() . '/files/WRW_small.webp' ),
+);
+
 
 get_header(); ?>
 <?php

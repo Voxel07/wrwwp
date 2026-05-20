@@ -4,6 +4,6 @@ Das Team Wild Rovers Württemberg gibt es jetzt schon seit Mitte 2006 damals als
 Ein neuer Name, ein neues Logo und eine Fusion mit unseren langjährigen Freunden und Partnerteam Legion Esslingen 1 später, waren die Wild Rovers geboren. 
 
 AKTUELLES:
-Aktuell haben wir 30 Mitglieder und 3 Frischlinge (Anwärter). Wir kommen aus den unterschiedlichsten Ecken aus Deutschland. Der Hauptteil des Teams ist aber im Großraum Esslingen / Stuttgart zu finden. In den letzten Jahren haben wir viele neue junge Mitglieder dazugewonnen, dennoch ist von 18 bis 34 Jahren alles dabei.
+Aktuell haben wir 12 Mitglieder und 1 Frischlinge (Anwärter). Wir kommen aus den unterschiedlichsten Ecken aus Deutschland. Der Hauptteil des Teams ist aber im Großraum Esslingen / Stuttgart zu finden. In den letzten Jahren haben wir viele neue junge Mitglieder dazugewonnen, dennoch ist von 18 bis 41 Jahren alles dabei.
 
 Solltet ihr ein Team suchen oder ihr wollt uns näher kennenlernen, findet ihr alle weiteren Informationen unter dem Reiter Infos/Regeln. 
